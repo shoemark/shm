@@ -1,0 +1,13 @@
+diff -ruN maude-2.7.1-orig/src/Main/Makefile.am maude-2.7.1/src/Main/Makefile.am
+--- maude-2.7.1-orig/src/Main/Makefile.am	2014-06-05 03:15:53.000000000 +0200
++++ maude-2.7.1/src/Main/Makefile.am	2018-12-09 15:36:39.111078996 +0100
+@@ -61,7 +61,8 @@
+ 	$(TECLA_LIBS) \
+ 	$(LIBSIGSEGV_LIB) \
+ 	$(GMP_LIBS) \
+-	$(DLMALLOC_LIB)
++	$(DLMALLOC_LIB) \
++	-lcln
+ 
+ maude_SOURCES = \
+ 	main.cc

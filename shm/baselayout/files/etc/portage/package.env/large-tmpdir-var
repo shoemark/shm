@@ -1,0 +1,7 @@
+app-emulation/qemu-kvm			tmpdir-var
+app-office/libreoffice			tmpdir-var
+dev-lang/ghc					tmpdir-var
+dev-lang/mono					tmpdir-var
+dev-lang/rust					tmpdir-var
+www-client/firefox				tmpdir-var
+www-client/chromium				tmpdir-var

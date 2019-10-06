@@ -1,0 +1,34 @@
+FEATURES="-ccache cgroup clean-logs -distcc -distcc-pump -keepwork parallel-fetch parallel-install -unmerge-backup unmerge-orphans userfetch userpriv usersandbox usersync xattr"
+CCACHE_SIZE="4G"
+EMERGE_DEFAULT_OPTS="--oneshot --autounmask-keep-masks --autounmask-write --binpkg-respect-use=y --verbose-conflicts"
+QUICKPKG_DEFAULT_OPTS="--include-config=y"
+DISTCC_SSH="ssh"
+
+PORTDIR="/var/db/repos/gentoo"
+DISTDIR="/var/cache/distfiles"
+PKGDIR="/var/cache/binpkgs"
+LC_MESSAGES="C"
+
+#
+# Protect root's crontab
+#
+CONFIG_PROTECT="${CONFIG_PROTECT} /var/spool/crontabs/root"
+
+#
+# Locale and timezone support
+#
+USE_EXPAND="${USE_EXPAND} CHARSETS"
+USE_EXPAND="${USE_EXPAND} LOCALES"
+USE_EXPAND="${USE_EXPAND} SYSTEM_CHARSET"
+USE_EXPAND="${USE_EXPAND} SYSTEM_KEYMAP"
+USE_EXPAND="${USE_EXPAND} SYSTEM_LOCALE"
+USE_EXPAND="${USE_EXPAND} SYSTEM_RTC"
+USE_EXPAND="${USE_EXPAND} SYSTEM_TIMEZONE"
+
+CHARSETS="utf8"
+LOCALES="c en_us de_de"
+SYSTEM_CHARSET="utf8"
+SYSTEM_KEYMAP="de_latin1"
+SYSTEM_LOCALE="de_de"
+SYSTEM_RTC="utc"
+SYSTEM_TIMEZONE="europe_berlin"

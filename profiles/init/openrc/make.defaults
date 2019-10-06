@@ -1,0 +1,6 @@
+USE="${USE} openrc"
+USE="${USE} elogind"
+
+SHM_CORE_PACKAGES="${SHM_CORE_PACKAGES}
+	sys-apps/openrc
+"

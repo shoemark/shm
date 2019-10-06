@@ -1,0 +1,25 @@
+#! /bin/sh
+
+CGROUP_CPU="/sys/fs/cgroup/cpu/portage"
+PORTAGE_CPU_SHARES=512
+
+CGROUP_MEM="/sys/fs/cgroup/memory/portage"
+PORTAGE_MEM_NUMERATOR=5
+PORTAGE_MEM_DENOMINATOR=6
+
+# $1 must be the portage PID
+[ -n "$1" ] || exit 1
+
+ionice -c3 -p ${1}
+
+mkdir "${CGROUP_CPU}" 2>/dev/null && {
+	echo ${PORTAGE_CPU_SHARES} >"${CGROUP_CPU}"/cpu.shares
+}
+echo ${1} >"${CGROUP_CPU}"/tasks
+
+mkdir "${CGROUP_MEM}" 2>/dev/null && {
+	memory=$(free -b | sed -ne '2p' | awk '{ print $2; }')
+	echo $[(${PORTAGE_MEM_NUMERATOR}*${memory})/${PORTAGE_MEM_DENOMINATOR}] >"${CGROUP_MEM}"/memory.limit_in_bytes
+	echo $[(${PORTAGE_MEM_NUMERATOR}*${memory})/${PORTAGE_MEM_DENOMINATOR}] >"${CGROUP_MEM}"/memory.memsw.limit_in_bytes
+}
+echo ${1} >"${CGROUP_MEM}"/tasks

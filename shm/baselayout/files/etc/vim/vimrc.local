@@ -1,0 +1,11 @@
+"let mapleader='\'
+
+set background=dark
+set hlsearch
+set list
+set listchars=tab:→\ ,trail:-,nbsp:~
+set number
+
+if has('gui_running')
+        set guifont=Iosevka\ 11
+endif

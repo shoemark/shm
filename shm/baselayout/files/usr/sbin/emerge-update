@@ -1,0 +1,39 @@
+#! /bin/sh
+
+EIX_SYNC_OPTS='*' eix-sync \
+	|| { emerge --sync ; layman -S ; eix-update }
+
+resume_list=$(python -c 'import portageif "resume" in portage.mtimedb: print("\n".join([item[2] for item in portage.mtimedb["resume"]["mergelist"]]))' 2>/dev/null)
+if [[ $(wc -c <<<"${resume_list}") == 1 ]] ; then
+	emerge="emerge"
+	emerge_flags="--autounmask-write=n --keep-going=y --backtrack=99999999 -j1 $@"
+
+	# update portage and baselayouts
+	baselayouts=$(eix -# -I '/baselayout$')
+	${emerge} -uN1 ${emerge_flags} portage ${baselayouts}
+
+	# try to update the system
+	${emerge} -uND1 --with-bdeps=y --usepkg ${emerge_flags} @shm-core \
+		|| ${emerge} -uN1 --usepkg ${emerge_flags} @shm-core \
+		|| ${emerge} -uND1 --with-bdeps=y --usepkg ${emerge_flags} @system \
+		|| ${emerge} -uN1 --usepkg ${emerge_flags} @system
+
+	# try to get rid of old packages
+	${emerge} --depclean
+
+	# try to rebuild preserved packages
+	${emerge} -1 ${emerge_flags} @preserved-rebuild
+
+	# try to rebuild broken packages
+	revdep-rebuild
+
+	# try to complete the {,/usr}/lib32 migration
+	${emerge} -1 ${emerge_flags} {,/usr}/lib32
+
+	# get rid of old distfiles and packages
+	eclean-dist
+	eclean-pkg
+
+	# clear resume list
+	yes | eprl -c
+fi

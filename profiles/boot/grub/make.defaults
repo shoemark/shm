@@ -1,0 +1,5 @@
+CONFIG_PROTECT="${CONFIG_PROTECT} /boot/grub/grub.cfg"
+
+SHM_CORE_PACKAGES="${SHM_CORE_PACKAGES}
+	sys-boot/grub
+"

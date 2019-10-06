@@ -1,0 +1,11 @@
+DEFINED_PHASES=install postinst postrm prerm
+DEPEND=app-portage/gentoolkit app-portage/portage-utils sys-apps/baselayout sys-apps/portage sys-process/dcron sys-apps/coreutils sys-apps/update-conf virtual/pkgconfig
+DESCRIPTION=Shoemark's baselayout
+EAPI=5
+IUSE=charsets_utf8 locales_c locales_de_de locales_en_us openrc system_charset_utf8 system_keymap_us system_keymap_de_latin1 system_keymap_de_latin1_nodeadkeys system_locale_c system_locale_de_de system_locale_en_us system_rtc_local system_rtc_utc system_timezone_europe_berlin system_timezone_utc systemd
+KEYWORDS=x86 amd64
+PDEPEND=systemd? ( sys-apps/gentoo-systemd-integration )
+RDEPEND=app-portage/gentoolkit app-portage/portage-utils sys-apps/baselayout sys-apps/portage sys-process/dcron openrc? ( sys-apps/openrc ) systemd? ( sys-apps/systemd )
+SLOT=0
+_eclasses_=config	585f6d99820b4c71b0f9ddce6ada4825	config_d	d552fa3b285dfe3432aa2960e04ac3a9	eutils	025442f2eecab39ad0b4e541b6e142af	multilib	fac675dcccf94392371a6abee62d909f	repo	fd51d9cf7bb5ee361fb52df3090f87db	systemd	9f063b2cc19c5e8030911372aa246c4e	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
+_md5_=19b165542c3f24541b538dfb4443dd89

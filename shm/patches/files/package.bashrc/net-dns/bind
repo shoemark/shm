@@ -1,0 +1,5 @@
+if [ "${EBUILD_PHASE}" == "compile" ]; then
+	if [ -d "${S}" ]; then
+		find "${S}"/bin -name Makefile -exec sed -i -e 's@-L/usr/lib @-L/usr/lib64 @' '{}' ';' || die
+	fi
+fi

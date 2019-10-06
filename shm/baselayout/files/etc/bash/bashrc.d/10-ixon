@@ -1,0 +1,6 @@
+case "$-" in
+	*i*)
+		stty -ixon ;;
+	*)
+		;;
+esac

@@ -1,0 +1,33 @@
+--- a/system-generators/gentoo-local-generator
++++ b/system-generators/gentoo-local-generator
+@@ -4,8 +4,8 @@
+ cd "${locald_dir}" || exit 1
+ 
+ svc_dir=/run/systemd/generator
+-wan_dir=${svc_dir}/multi-user.target.wants
+-mkdir -p "${svc_dir}" "${wan_dir}" || exit 1
++wan_dirs="${svc_dir}/maintenance.target.wants ${svc_dir}/multi-user.target.wants"
++mkdir -p ${svc_dir} ${wan_dirs} || exit 1
+ 
+ previous=
+ 
+@@ -43,7 +43,7 @@
+ 
+ 	echo "[Unit]
+ Description=Service for local.d/${fn}.*
+-After=multi-user.target graphical.target ${previous}
++After=maintenance.target multi-user.target graphical.target ${previous}
+ ConditionFileIsExecutable=${locald_dir}/${f}
+ 
+ [Service]
+@@ -53,7 +53,9 @@
+ ExecStart=${start_cmd}
+ ExecStop=${stop_cmd}" > "${svc_dir}/${svc_file}"
+ 
+-	ln -s "../${svc_file}" "${wan_dir}/${svc_file}"
++	for wan_dir in ${wan_dirs}; do
++		ln -s "../${svc_file}" "${wan_dir}/${svc_file}"
++	done
+ 
+ 	previous=${svc_file}
+ done
